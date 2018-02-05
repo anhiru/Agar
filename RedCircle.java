@@ -21,10 +21,10 @@ class RedCircle extends JComponent {
 		g.draw(circle);
 		g.fill(circle);
 	}
-	public int getX() {
+	public int getXCoord() {
 		return x;
 	}
-	public int getY() {
+	public int getYCoord() {
 		return y;
 	}
 }
