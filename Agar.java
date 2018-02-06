@@ -4,20 +4,26 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Agar {
+	private static JFrame f;
+	private static Circles c;
+
 	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.setSize(700, 720);
+		f = new JFrame();
+		//fullscreen
+		f.setSize(1280, 720);
 		f.setTitle("Agar");
-		f.setBackground(new Color(180, 180, 180));
+		//f.setBackground(new Color(180, 180, 180));
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		c = new Circles();
 		RedCircle r = new RedCircle();
-		f.add(r);
+		f.getContentPane().add(r);
 		f.setVisible(true);
 
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 12; i++) {
 			BlueCircle b = new BlueCircle();
-			f.add(b);
+			c.addCircle(b);
+			f.getContentPane().add(b);
 			f.setVisible(true);
 		}
 
@@ -41,5 +47,15 @@ public class Agar {
 				}
 			}
 		});
+
+		while(true) {
+			//60 fps
+			try {
+				Thread.sleep(17);
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+			f.repaint();
+		}
 	}
 }
