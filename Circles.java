@@ -1,10 +1,20 @@
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 public class Circles {
 	ArrayList<BlueCircle> blues;
+	//Timer timer;
+	//int seconds;
 
 	public Circles() {
 		blues = new ArrayList<BlueCircle>();
+		/*
+		seconds = 0;
+		timer = new Timer(1000, e -> {
+			seconds++;
+			time.setText(String.format("Time: %.2d:%.2d ", (seconds%3600)/60, (seconds%60)));
+		});
+		*/
 	}
 	public void addCircle(BlueCircle b) {
 		blues.add(b);

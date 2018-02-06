@@ -2,10 +2,12 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.TreeSet;
 
 public class Agar {
 	private static JFrame f;
 	private static Circles c;
+	private static TreeSet<Integer> pressed;
 
 	public static void main(String[] args) {
 		f = new JFrame();
@@ -28,23 +30,49 @@ public class Agar {
 		}
 
 		//keyboard listener
+		pressed = new TreeSet<Integer>();
 		f.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				switch(e.getKeyCode()) {
-					case KeyEvent.VK_UP:
-						//handle VK_UP
-						break;
-					case KeyEvent.VK_RIGHT:
-						//handle right
-						break;
-					case KeyEvent.VK_DOWN:
-						//handle down
-						break;
-					case KeyEvent.VK_LEFT:
-						//handle left
-						break;
+				int i = e.getKeyCode();
+				pressed.add(i);
+				if(pressed.size() > 1) {
+					Integer[] arr = pressed.toArray(new Integer[] {});
+					if(arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) {
+						r.moveUp();
+						r.moveRight();
+					}
+					if(arr[0] == KeyEvent.VK_RIGHT && arr[1] == KeyEvent.VK_DOWN) {
+						r.moveRight();
+						r.moveDown();
+					}
+					if(arr[0] == KeyEvent.VK_LEFT && arr[1] == KeyEvent.VK_DOWN) {
+						r.moveDown();
+						r.moveLeft();
+					}
+					if(arr[0] == KeyEvent.VK_LEFT && arr[1] == KeyEvent.VK_UP) {
+						r.moveLeft();
+						r.moveUp();
+					}
+				} else {
+					switch(i) {
+						case KeyEvent.VK_UP:
+							r.moveUp();
+							break;
+						case KeyEvent.VK_RIGHT:
+							r.moveRight();
+							break;
+						case KeyEvent.VK_DOWN:
+							r.moveDown();
+							break;
+						case KeyEvent.VK_LEFT:
+							r.moveLeft();
+							break;
+					}
 				}
+			}
+			public void keyReleased(KeyEvent e) {
+				pressed.remove(Integer.valueOf(e.getKeyCode()));
 			}
 		});
 
