@@ -1,5 +1,5 @@
 # Agar
-Inspired by the great [agar.io](agar.io)
+Inspired by the great [agar.io](https://agar.io).
 
 ## Todo:
 - [x] Paint circles
