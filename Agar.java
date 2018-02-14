@@ -6,32 +6,31 @@ import java.util.TreeSet;
 
 //Tinfoil#2751
 public class Agar {
+	private static Game g;
 	private static JFrame f;
-	private static Circles c;
-	private static TreeSet<Integer> pressed;
 
 	public static void main(String[] args) {
+		g = new Game();
 		f = new JFrame();
 		//fullscreen
 		f.setSize(1280, 720);
 		f.setTitle("Agar");
-		//f.setBackground(new Color(180, 180, 180));
+		f.getContentPane().setBackground(new Color(25, 25, 25));
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		c = new Circles();
-		RedCircle r = new RedCircle();
-		f.getContentPane().add(r);
+		Sprite s = new Sprite();
+		f.add(s);
 		f.setVisible(true);
 
-		for(int i = 0; i < 12; i++) {
-			BlueCircle b = new BlueCircle();
-			c.addCircle(b);
-			f.getContentPane().add(b);
+		for(int i = 0; i < 15; i++) {
+			Dot d = new Dot();
+			g.addDot(d);
+			f.add(d);
 			f.setVisible(true);
 		}
-
+		
 		//keyboard listener
-		pressed = new TreeSet<Integer>();
+		TreeSet<Integer> pressed = new TreeSet<Integer>();
 		f.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -39,72 +38,54 @@ public class Agar {
 				if(pressed.size() > 1) {
 					Integer[] arr = pressed.toArray(new Integer[] {});
 					if(arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) {
-						//r.moveUp();
-						//r.moveRight();
-						r.setTrue('u');
-						r.setTrue('r');
+						s.move('u');
+						s.move('r');
 					}
 					if(arr[0] == KeyEvent.VK_RIGHT && arr[1] == KeyEvent.VK_DOWN) {
-						//r.moveRight();
-						//r.moveDown();
-						r.setTrue('r');
-						r.setTrue('d');
+						s.move('r');
+						s.move('d');
 					}
 					if(arr[0] == KeyEvent.VK_LEFT && arr[1] == KeyEvent.VK_DOWN) {
-						//r.moveDown();
-						//r.moveLeft();
-						r.setTrue('d');
-						r.setTrue('l');
+						s.move('d');
+						s.move('l');
 					}
 					if(arr[0] == KeyEvent.VK_LEFT && arr[1] == KeyEvent.VK_UP) {
-						//r.moveLeft();
-						//r.moveUp();
-						r.setTrue('l');
-						r.setTrue('u');
+						s.move('l');
+						s.move('u');
 					}
 				} else {
 					switch(e.getKeyCode()) {
 						case KeyEvent.VK_UP:
-							//r.moveUp();
-							r.setTrue('u');
+							s.move('u');
 							break;
 						case KeyEvent.VK_RIGHT:
-							//r.moveRight();
-							r.setTrue('r');
+							s.move('r');
 							break;
 						case KeyEvent.VK_DOWN:
-							//r.moveDown();
-							r.setTrue('d');
+							s.move('d');
 							break;
 						case KeyEvent.VK_LEFT:
-							//r.moveLeft();
-							r.setTrue('l');
+							s.move('l');
 							break;
 					}
 				}
-				r.update();
 			}
 			public void keyReleased(KeyEvent e) {
 				pressed.remove(Integer.valueOf(e.getKeyCode()));
 				switch(e.getKeyCode()) {
 					case KeyEvent.VK_UP:
-						//r.moveUp();
-						r.setFalse('u');
+						s.stop('u');
 						break;
 					case KeyEvent.VK_RIGHT:
-						//r.moveRight();
-						r.setFalse('r');
+						s.stop('r');
 						break;
 					case KeyEvent.VK_DOWN:
-						//r.moveDown();
-						r.setFalse('d');
+						s.stop('d');
 						break;
 					case KeyEvent.VK_LEFT:
-						//r.moveLeft();
-						r.setFalse('l');
+						s.stop('l');
 						break;
 				}
-				r.update();
 			}
 		});
 
@@ -115,6 +96,9 @@ public class Agar {
 			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
+			g.eat(s);
+			g.bump();
+			s.update();
 			f.repaint();
 		}
 	}
