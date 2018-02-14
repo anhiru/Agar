@@ -7,30 +7,32 @@ import java.util.Random;
 
 class RedCircle extends JComponent {
 	private Random rn;
-	private int x, y, z;
-	private int xRate, yRate;
+	private int x, y, diameter;
+	private double velX, velY, speed;
+	private boolean up, right, down, left;
 
 	public RedCircle() {
 		rn = new Random();
 		x = rn.nextInt(1080) + 101;
 		y = rn.nextInt(500) + 101;
-		z = 50;
+		diameter = 50;
+		speed = 500/diameter;
 	}
 	public void paintComponent(Graphics graphics) {
 		Graphics2D g = (Graphics2D) graphics;
 		if(x < 0) {
 			x = 0;
 		}
-		if(x + z > 1280) {
-			x = 1280 - z;
+		if(x + diameter > 1280) {
+			x = 1280 - diameter;
 		}
 		if(y < 0) {
 			y = 0;
 		}
-		if(y + z > 700) {
-			y = 700 - z;
+		if(y + diameter > 700) {
+			y = 700 - diameter;
 		}
-		Ellipse2D.Double circle = new Ellipse2D.Double(x, y, z, z);
+		Ellipse2D.Double circle = new Ellipse2D.Double(x, y, diameter, diameter);
 		g.setColor(Color.RED);
 		g.draw(circle);
 		g.fill(circle);
@@ -47,23 +49,75 @@ class RedCircle extends JComponent {
 	public int y() {
 		return y;
 	}
-	public int z() {
-		return z;
+	public int getDiameter() {
+		return diameter;
 	}
+	
 	public void moveUp() {
-		yRate = -500/z;
-		y += yRate;
+		velY = -500/diameter;
+		y += velY;
 	}
 	public void moveRight() {
-		xRate = 500/z;
-		x += xRate;
+		velX = 500/diameter;
+		x += velX;
 	}
 	public void moveDown() {
-		yRate = 500/z;
-		y += yRate;
+		velY = 500/diameter;
+		y += velY;
 	}
 	public void moveLeft() {
-		xRate = -500/z;
-		x += xRate;
+		velX = -500/diameter;
+		x += velX;
+	}
+	
+	public void setVelX(double velX) {
+		this.velX = velX;
+		x += velX;
+	}
+	public void setVelY(double velY) {
+		this.velY = velY;
+		y += velY;
+	}
+	public void update() {
+		if(up) {
+			setVelY(-speed);
+		}
+		if(right) {
+			setVelX(speed);
+		}
+		if(down) {
+			setVelY(speed);
+		}
+		if(left) {
+			setVelX(-speed);
+		}
+	}
+	public void setTrue(char direction) {
+		if(direction == 'u') {
+			up = true;
+		}
+		if(direction == 'r') {
+			right = true;
+		}
+		if(direction == 'd') {
+			down = true;
+		}
+		if(direction == 'l') {
+			left = true;
+		}
+	}
+	public void setFalse(char direction) {
+		if(direction == 'u') {
+			up = false;
+		}
+		if(direction == 'r') {
+			right = false;
+		}
+		if(direction == 'd') {
+			down = false;
+		}
+		if(direction == 'l') {
+			left = false;
+		}
 	}
 }

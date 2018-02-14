@@ -4,6 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.TreeSet;
 
+//Tinfoil#2751
 public class Agar {
 	private static JFrame f;
 	private static Circles c;
@@ -34,45 +35,76 @@ public class Agar {
 		f.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				int i = e.getKeyCode();
-				pressed.add(i);
+				pressed.add(e.getKeyCode());
 				if(pressed.size() > 1) {
 					Integer[] arr = pressed.toArray(new Integer[] {});
 					if(arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) {
-						r.moveUp();
-						r.moveRight();
+						//r.moveUp();
+						//r.moveRight();
+						r.setTrue('u');
+						r.setTrue('r');
 					}
 					if(arr[0] == KeyEvent.VK_RIGHT && arr[1] == KeyEvent.VK_DOWN) {
-						r.moveRight();
-						r.moveDown();
+						//r.moveRight();
+						//r.moveDown();
+						r.setTrue('r');
+						r.setTrue('d');
 					}
 					if(arr[0] == KeyEvent.VK_LEFT && arr[1] == KeyEvent.VK_DOWN) {
-						r.moveDown();
-						r.moveLeft();
+						//r.moveDown();
+						//r.moveLeft();
+						r.setTrue('d');
+						r.setTrue('l');
 					}
 					if(arr[0] == KeyEvent.VK_LEFT && arr[1] == KeyEvent.VK_UP) {
-						r.moveLeft();
-						r.moveUp();
+						//r.moveLeft();
+						//r.moveUp();
+						r.setTrue('l');
+						r.setTrue('u');
 					}
 				} else {
-					switch(i) {
+					switch(e.getKeyCode()) {
 						case KeyEvent.VK_UP:
-							r.moveUp();
+							//r.moveUp();
+							r.setTrue('u');
 							break;
 						case KeyEvent.VK_RIGHT:
-							r.moveRight();
+							//r.moveRight();
+							r.setTrue('r');
 							break;
 						case KeyEvent.VK_DOWN:
-							r.moveDown();
+							//r.moveDown();
+							r.setTrue('d');
 							break;
 						case KeyEvent.VK_LEFT:
-							r.moveLeft();
+							//r.moveLeft();
+							r.setTrue('l');
 							break;
 					}
 				}
+				r.update();
 			}
 			public void keyReleased(KeyEvent e) {
 				pressed.remove(Integer.valueOf(e.getKeyCode()));
+				switch(e.getKeyCode()) {
+					case KeyEvent.VK_UP:
+						//r.moveUp();
+						r.setFalse('u');
+						break;
+					case KeyEvent.VK_RIGHT:
+						//r.moveRight();
+						r.setFalse('r');
+						break;
+					case KeyEvent.VK_DOWN:
+						//r.moveDown();
+						r.setFalse('d');
+						break;
+					case KeyEvent.VK_LEFT:
+						//r.moveLeft();
+						r.setFalse('l');
+						break;
+				}
+				r.update();
 			}
 		});
 

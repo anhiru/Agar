@@ -21,16 +21,16 @@ public class Circles {
 	}
 	public void ballBumped() {
 		for(int i = 0; i < blues.size(); i++) {
-			for(int j = i; j < blues.size(); j++) {
+			for(int j = 0; j < blues.size(); j++) {
 				BlueCircle a = blues.get(i);
 				BlueCircle b = blues.get(j);
-				if((a.x()+a.z() <= b.x()) || (b.x()+b.z() <= a.x())) {
-					a.changeXRate();
-					b.changeXRate();
-				}
-				if((a.y()+a.z() <= b.y()) || (b.y()+b.z() <= a.y())) {
-					a.changeYRate();
-					b.changeYRate(); 
+				double distance = Math.sqrt(Math.pow(b.x()-a.x(), 2) + Math.pow(b.y()-a.y(), 2));
+				double abRadius = a.getRadius() + b.getRadius();
+				if(abRadius >= distance || a.getRadius() - b.getRadius() <= distance || b.getRadius() - a.getRadius() <= distance) {
+					a.changeVelX();
+					b.changeVelX();
+					a.changeVelY();
+					b.changeVelY(); 
 				}
 			}
 		}
