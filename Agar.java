@@ -69,6 +69,7 @@ public class Agar {
 					}
 				}
 			}
+			//updates boolean variables each key press/release
 			public void keyReleased(KeyEvent e) {
 				pressed.remove(Integer.valueOf(e.getKeyCode()));
 				switch(e.getKeyCode()) {
