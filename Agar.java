@@ -4,7 +4,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.TreeSet;
 
-//Tinfoil#2751
 public class Agar {
 	private static Game g;
 	private static JFrame f;
@@ -70,6 +69,7 @@ public class Agar {
 					}
 				}
 			}
+			//updates boolean variables each key press/release
 			public void keyReleased(KeyEvent e) {
 				pressed.remove(Integer.valueOf(e.getKeyCode()));
 				switch(e.getKeyCode()) {
