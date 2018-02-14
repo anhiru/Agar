@@ -4,10 +4,12 @@ import java.util.ArrayList;
 class Game {
 	private ArrayList<Dot> dots;
 	private boolean gameOver;
+	private Sound s;
 
 	public Game() {
 		dots = new ArrayList<Dot>();
 		gameOver = false;
+		s = new Sound();
 	}
 	public void addDot(Dot d) {
 		dots.add(d);
@@ -18,6 +20,7 @@ class Game {
 			double distance = Math.sqrt(Math.pow(s.x()-d.x(), 2) + Math.pow(s.y()-d.y(), 2));
 			double brRadius = s.getRadius() + d.getRadius();
 			if(!(brRadius < distance || Math.abs(s.getRadius() - d.getRadius()) >= distance)) {
+				this.s.eat();
 				d.getEaten();
 				s.grow(d.getRadius());
 				dots.remove(d);

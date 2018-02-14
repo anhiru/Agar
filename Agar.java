@@ -4,7 +4,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.TreeSet;
 
-//Tinfoil#2751
 public class Agar {
 	private static Game g;
 	private static JFrame f;
